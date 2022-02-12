@@ -1,5 +1,3 @@
-# dvmn_bitly
-
 # CLI bitly url shorterer
 
 Run the app on a command line. Then just insert a link with https://. If there is a bitlink - you'll get a click counter. If not - will get a new bitly link. As an option you can run the app with argument -l. Example:
