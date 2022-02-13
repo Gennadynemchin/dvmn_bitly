@@ -30,7 +30,13 @@ def count_click(bitlink):
 
 
 def main():
-    link = input('Enter a link: ')
+    parser = argparse.ArgumentParser(description='Bitly command line application')
+    parser.add_argument('-l', '--bitlink', help='enter your link here', type=str)
+    args = parser.parse_args()
+    if args.bitlink is not None:
+        link = args.bitlink
+    else:
+        link = input('Enter a link: ')
     parsed_link = urlparse(link)
     link2func = f'{parsed_link.hostname}{parsed_link.path}'
     if is_bitlink(link2func):
