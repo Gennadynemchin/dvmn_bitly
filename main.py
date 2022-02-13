@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from requests.models import HTTPError
 
 
-load_dotenv()
 
 BITOKEN = os.getenv('BITOKEN')
 
@@ -35,10 +34,10 @@ def count_click(bitlink):
 
 
 def main():
+    load_dotenv()
     parser = argparse.ArgumentParser(description='Bitly command line application')
     parser.add_argument('-l', '--bitlink', help='enter your link here', type=str)
     args = parser.parse_args()
-    print(args.bitlink)
     if args.bitlink is not None:
         link = args.bitlink
     else:
