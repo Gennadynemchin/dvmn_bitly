@@ -30,6 +30,8 @@ def count_click(bitlink):
 
 
 def main():
+    load_dotenv()
+    BITOKEN = os.getenv('BITOKEN')
     parser = argparse.ArgumentParser(description='Bitly command line application')
     parser.add_argument('-l', '--bitlink', help='enter your link here', type=str)
     args = parser.parse_args()
@@ -49,9 +51,7 @@ def main():
             print(shorten_link(link))
         except HTTPError as err:
             print(err)
-  
-        
+
+
 if __name__ == '__main__':
-    load_dotenv()
-    BITOKEN = os.getenv('BITOKEN')
     main()
