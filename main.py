@@ -8,14 +8,14 @@ from requests.models import HTTPError
 
 def is_bitlink(link) -> bool:
     url = f'https://api-ssl.bitly.com/v4/bitlinks/{link}'
-    response = requests.get(url, headers={'Authorization': BITOKEN})
+    response = requests.get(url, headers={'Authorization': os.getenv('BITOKEN')})
     return response.ok
 
 
 def shorten_link(link):
     url = 'https://api-ssl.bitly.com/v4/shorten'
     payload = {'long_url': link}
-    response = requests.post(url, json=payload, headers={'Authorization': BITOKEN})
+    response = requests.post(url, json=payload, headers={'Authorization': os.getenv('BITOKEN')})
     response.raise_for_status()
     decoded_response = response.json()
     return decoded_response["link"]
@@ -23,13 +23,14 @@ def shorten_link(link):
 
 def count_click(bitlink):
     url_count = f'https://api-ssl.bitly.com/v4/bitlinks/{bitlink}/clicks/summary'
-    response_count = requests.get(url_count, headers={'Authorization': BITOKEN})
+    response_count = requests.get(url_count, headers={'Authorization': os.getenv('BITOKEN')})
     response_count.raise_for_status()
     decoded_response = response_count.json()
     return decoded_response['total_clicks']
 
 
 def main():
+    load_dotenv()
     parser = argparse.ArgumentParser(description='Bitly command line application')
     parser.add_argument('-l', '--bitlink', help='enter your link here', type=str)
     args = parser.parse_args()
