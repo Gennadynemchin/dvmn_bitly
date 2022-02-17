@@ -31,7 +31,7 @@ def count_click(bitlink, bitly_token):
 
 def main():
     load_dotenv()
-    bit_token = os.getenv('BITOKEN')
+    BIT_TOKEN = os.getenv('BITOKEN')
     parser = argparse.ArgumentParser(description='Bitly command line application')
     parser.add_argument('-l', '--bitlink', help='enter your link here', type=str)
     args = parser.parse_args()
@@ -41,14 +41,14 @@ def main():
         link = input('Enter a link: ')
     parsed_link = urlparse(link)
     link2func = f'{parsed_link.hostname}{parsed_link.path}'
-    if is_bitlink(link2func, bit_token):
+    if is_bitlink(link2func, BIT_TOKEN):
         try:
-            print(f'Total clicks: {count_click(link2func, bit_token)}')
+            print(f'Total clicks: {count_click(link2func, BIT_TOKEN)}')
         except HTTPError as err:
             print(err)
     else:
         try:
-            print(shorten_link(link, bit_token))
+            print(shorten_link(link, BIT_TOKEN))
         except HTTPError as err:
             print(err)
 
